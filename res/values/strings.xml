@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, main!</string>
+    <string name="app_name">Tabber</string>
+    <string name="submit">Submit</string>
+    <string name="artist">Artist</string>
+    <string name="song">Song</string>
+    <string name="key">Key: </string>
+    <string name="blank"></string>
+    <string name="previous">Previous</string>
+    <string name="pause">Pause</string>
+    <string name="next">Next</string>
+    <string name="list">List All Songs</string>
+    <string name="songs">Songs</string>
+    <string name="album">Albums</string>
+</resources>
