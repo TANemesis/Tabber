@@ -12,5 +12,7 @@
 	<classpathentry kind="lib" path="C:/Users/Robin/Downloads/gdata/java/lib/gdata-youtube-2.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Robin/Downloads/gdata/java/lib/gdata-youtube-meta-2.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Robin/Desktop/youtubeplayerandroid/OpenYouTubeActivity/openyoutubeactivity.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Robin/Downloads/gdata/java/deps/guava-11.0.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Robin/Downloads/gdata/java/deps/jsr305.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

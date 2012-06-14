@@ -161,8 +161,8 @@ public class DataBaseHelper extends SQLiteOpenHelper{
         initialValues.put("display_name", display_name);
         initialValues.put("duration", duration);
         myDataBase.insert(DATABASE_TABLE, null, initialValues);*/
-        System.out.println("CREATING ROW: ALBUM: " + album);
-        myDataBase.rawQuery("INSERT INTO SONGS " +
+        //System.out.println("CREATING ROW: ALBUM: " + album);
+        myDataBase.rawQuery("INSERT INTO songs " +
         		"VALUES ("+id+ ",'"+artist+"','"+title+"','"+data+"','"+display_name
         		+"','" +duration+"',"+"'" + album +"')", null);
     }

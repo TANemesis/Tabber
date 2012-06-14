@@ -6,6 +6,7 @@
     <TextView android:layout_width="wrap_content" android:id="@+id/artistName" android:text="TextView" android:layout_height="wrap_content" android:layout_gravity="center" android:keepScreenOn="true" android:textSize="20px"></TextView>
     <TextView android:layout_width="wrap_content" android:id="@+id/songName" android:text="TextView" android:layout_height="wrap_content" android:textStyle="bold" android:layout_gravity="center|top" android:textSize="25px"></TextView>
     <TextView android:layout_width="wrap_content" android:id="@+id/albumName" android:text="TextView" android:layout_height="wrap_content" android:layout_gravity="center" android:textSize="20px"></TextView>
+    <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/icon" android:layout_gravity="center" android:paddingTop="10px" android:paddingBottom="10px" android:id="@+id/albumArt"></ImageView>
     <LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/linearLayout1" android:orientation="vertical">
         <LinearLayout android:layout_width="match_parent" android:id="@+id/linearLayout2" android:layout_height="wrap_content">
             <TextView android:layout_width="wrap_content" android:layout_gravity="center" android:layout_height="wrap_content" android:text="TextView" android:id="@+id/currentPosition"></TextView>

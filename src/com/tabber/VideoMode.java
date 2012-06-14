@@ -5,13 +5,16 @@ import com.echonest.api.v4.EchoNestException;
 import com.echonest.api.v4.Params;
 import com.echonest.api.v4.Song;
 import com.echonest.api.v4.Track;
-import com.google.gdata.client.*;
-import com.google.gdata.client.calendar.*;
-import com.google.gdata.data.*;
-import com.google.gdata.data.extensions.*;
-import com.google.gdata.util.*;
-import com.keyes.youtube.OpenYouTubePlayerActivity;
+import com.google.gdata.client.youtube.YouTubeService;
+import com.google.gdata.util.ServiceException;
 
+
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.List;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -43,14 +46,24 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 public class VideoMode extends Activity {
-	public void onCreate(Bundle savedInstanceState) {
+	  /**
+	   * The name of the server hosting the YouTube GDATA feeds
+	   */
+	  public static final String YOUTUBE_GDATA_SERVER = "http://gdata.youtube.com";
+	  
+	  public static final String USER_FEED_PREFIX = YOUTUBE_GDATA_SERVER
+	  	+ "/feeds/api/users/";
+	
+	  /**
+	   * The URL suffix of the test user's uploads feed
+	   */
+	  public static final String UPLOADS_FEED_SUFFIX = "/uploads";
+	
+	  public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.videomode);
         LinearLayout background = (LinearLayout) findViewById(R.id.scrollLL);
         background.setBackgroundColor(Color.WHITE);
-        
-        
-        
         
         
         String[] videoIDs = {"sENM2wA_FTg", "qQkBeOisNM0","sENM2wA_FTg", "qQkBeOisNM0","sENM2wA_FTg", "qQkBeOisNM0","sENM2wA_FTg", "qQkBeOisNM0"};
