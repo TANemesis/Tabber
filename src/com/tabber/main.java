@@ -30,7 +30,7 @@ public class main extends TabActivity {
         tabHost.addTab(spec);
 
         // Do the same for the other tabs
-        intent = new Intent().setClass(this, JamMode.class);
+        intent = new Intent().setClass(this, AndroidBuildingMusicPlayerActivity.class);
         spec = tabHost.newTabSpec("albums").setIndicator("Jam Mode",
                           res.getDrawable(R.drawable.ic_tab_artists))
                       .setContent(intent);

@@ -5,13 +5,6 @@
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="lib" path="C:/Users/Robin/Downloads/jEN-4.x.p/lib/jEN.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Robin/Downloads/jEN-4.x.p/lib/json_simple-1.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Robin/Downloads/gdata/java/lib/gdata-calendar-2.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Robin/Downloads/gdata/java/lib/gdata-calendar-meta-2.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Robin/Downloads/gdata/java/lib/gdata-client-1.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Robin/Downloads/gdata/java/lib/gdata-client-meta-1.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Robin/Downloads/gdata/java/lib/gdata-youtube-2.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Robin/Downloads/gdata/java/lib/gdata-youtube-meta-2.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Robin/Desktop/youtubeplayerandroid/OpenYouTubeActivity/openyoutubeactivity.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Robin/Downloads/gdata/java/deps/guava-11.0.2.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Robin/Downloads/gdata/java/deps/jsr305.jar"/>
 	<classpathentry kind="output" path="bin"/>

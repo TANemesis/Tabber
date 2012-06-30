@@ -9,15 +9,29 @@
     <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/icon" android:layout_gravity="center" android:paddingTop="10px" android:paddingBottom="10px" android:id="@+id/albumArt"></ImageView>
     <LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/linearLayout1" android:orientation="vertical">
         <LinearLayout android:layout_width="match_parent" android:id="@+id/linearLayout2" android:layout_height="wrap_content">
-            <TextView android:layout_width="wrap_content" android:layout_gravity="center" android:layout_height="wrap_content" android:text="TextView" android:id="@+id/currentPosition"></TextView>
+            <TextView android:layout_gravity="center" android:layout_height="wrap_content" android:text="TextView" android:id="@+id/currentPosition" android:layout_width="match_parent" android:layout_weight="3" android:gravity="center"></TextView>
             <SeekBar android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/currentTime" android:layout_weight="1" android:clickable="true"></SeekBar>
-            <TextView android:layout_width="wrap_content" android:layout_gravity="center" android:layout_height="wrap_content" android:text="TextView" android:id="@+id/songDuration"></TextView>
+            <TextView android:layout_gravity="center" android:layout_height="wrap_content" android:text="TextView" android:id="@+id/songDuration" android:layout_width="match_parent" android:layout_weight="3" android:gravity="center"></TextView>
         </LinearLayout>
-        <LinearLayout android:layout_width="match_parent" android:id="@+id/linearLayout3" android:layout_height="wrap_content">
+        <LinearLayout android:layout_width="match_parent" android:id="@+id/linearLayout3" android:layout_height="wrap_content" android:layout_gravity="center" android:gravity="center">
             <Button android:layout_width="wrap_content" android:id="@+id/previousSong" android:layout_height="wrap_content" android:text="@string/previous"></Button>
             <Button android:layout_width="wrap_content" android:id="@+id/pauseButton" android:layout_height="wrap_content" android:text="@string/pause"></Button>
             <Button android:layout_width="wrap_content" android:id="@+id/nextSong" android:layout_height="wrap_content" android:text="@string/next"></Button>
             <Button android:layout_width="wrap_content" android:id="@+id/listAllSongs" android:layout_height="wrap_content" android:text="@string/list"></Button>
         </LinearLayout>
+    </LinearLayout>
+    <LinearLayout android:id="@+id/linearLayout4" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <TextView android:text="TextView" android:id="@+id/textView1" android:layout_height="wrap_content" android:visibility="invisible" android:layout_width="match_parent" android:layout_weight="3"></TextView>
+        <SeekBar android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/startLoopTime" android:layout_weight="1"></SeekBar>
+        <TextView android:layout_height="wrap_content" android:id="@+id/startLoopText" android:text="@string/zerotime" android:layout_width="match_parent" android:layout_weight="3" android:layout_gravity="center" android:gravity="center_horizontal"></TextView>
+    </LinearLayout>
+    <LinearLayout android:id="@+id/linearLayout5" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <TextView android:text="TextView" android:id="@+id/textView2" android:layout_height="wrap_content" android:visibility="invisible" android:layout_width="match_parent" android:layout_weight="3"></TextView>
+        <SeekBar android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/endLoopTime" android:layout_weight="1"></SeekBar>
+        <TextView android:id="@+id/endLoopText" android:layout_height="wrap_content" android:text="@string/zerotime" android:layout_width="match_parent" android:layout_weight="3" android:gravity="center" android:layout_gravity="center"></TextView>
+    </LinearLayout>
+    <LinearLayout android:id="@+id/linearLayout6" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_gravity="center_horizontal" android:gravity="center">
+        <Button android:layout_width="wrap_content" android:id="@+id/setLoopButton" android:layout_gravity="center_horizontal" android:text="@string/setloop" android:layout_height="wrap_content"></Button>
+        <Button android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/endLoopButton" android:text="@string/endloop"></Button>
     </LinearLayout>
 </LinearLayout>

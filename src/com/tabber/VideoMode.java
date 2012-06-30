@@ -5,8 +5,6 @@ import com.echonest.api.v4.EchoNestException;
 import com.echonest.api.v4.Params;
 import com.echonest.api.v4.Song;
 import com.echonest.api.v4.Track;
-import com.google.gdata.client.youtube.YouTubeService;
-import com.google.gdata.util.ServiceException;
 
 
 

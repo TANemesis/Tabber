@@ -54,6 +54,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.widget.LinearLayout.LayoutParams;
 
@@ -332,6 +333,21 @@ public class JamMode extends Activity{
 			line.setBackgroundColor(Color.BLACK);
 			line.setLayoutParams(new LayoutParams(1000,1));
 			
+	        int aid = cursor.getInt(7);
+	        //Bitmap art = getAlbumart((long) aid);
+	        //ImageView albumArt = new ImageView(this);
+	        //System.out.println(a);
+	        //if(art==null)
+	        //{
+	        //	albumArt.setImageResource(R.drawable.question);
+	        //}
+	        //else
+	        //{
+	        //	albumArt.setImageBitmap(art);
+	        //}
+	        
+			
+	        //songList.addView(albumArt);
 			songList.addView(song);
 			songList.addView(artist);
 			songList.addView(line);
@@ -530,8 +546,18 @@ public class JamMode extends Activity{
                          @Override
                          public void run() {
                         	 //System.out.println("Running...");
-                                 while(mp!=null && mp.getCurrentPosition()<mp.getDuration())
+                                 while(mp!=null && mp.getCurrentPosition()<=mp.getDuration())
                                  {
+                                	 boolean checkLoop = settings.getBoolean("isLoop2", false);
+                                	 if(checkLoop)
+                                	 {
+                                		 int startTime = settings.getInt("startLoopTime", 0);
+                                		 int endTime = settings.getInt("endLoopTime", mp.getDuration());
+                                		 if(mp.getCurrentPosition()>=endTime)
+                                		 {
+                                			 mp.seekTo(startTime);
+                                		 }
+                                	 }
                                 	 hRefresh.sendEmptyMessage(REFRESH);
                                      seekBar.setProgress(mp.getCurrentPosition());
                                      int millis = mp.getCurrentPosition();
@@ -552,6 +578,131 @@ public class JamMode extends Activity{
 
           }
       });
+		
+		
+		final SeekBar startLoop = (SeekBar) findViewById(R.id.startLoopTime);
+		final SeekBar endLoop = (SeekBar) findViewById(R.id.endLoopTime);
+		final TextView startText = (TextView) findViewById(R.id.startLoopText);
+		final TextView endText = (TextView) findViewById(R.id.endLoopText);
+		Button setLoop = (Button) findViewById(R.id.setLoopButton);
+		Button endLoopButton = (Button) findViewById(R.id.endLoopButton);
+		
+		startLoop.setMax(mMediaPlayer.getDuration());
+		endLoop.setMax(mMediaPlayer.getDuration());
+		
+		setLoop.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				if(startLoop.getProgress()<endLoop.getProgress())
+				{
+					editor.putBoolean("isLoop2", true);
+					//editor.putString("isLoop", "true");
+					editor.putInt("startLoopTime", startLoop.getProgress());
+					editor.putInt("endLoopTime", endLoop.getProgress());
+					editor.commit();
+					//make song repeat after this
+					mMediaPlayer.seekTo(startLoop.getProgress());
+				}
+				else
+				{
+					//show error
+				}
+			}
+			
+		});
+		
+		endLoopButton.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				editor.putBoolean("isLoop2", false);
+				editor.commit();
+			}
+			
+		});
+		
+		startLoop.setOnSeekBarChangeListener(new OnSeekBarChangeListener(){
+
+			@Override
+			public void onProgressChanged(SeekBar arg0, int time, boolean arg2) {
+				// TODO Auto-generated method stub
+				int i = (int) (TimeUnit.MILLISECONDS.toSeconds(time) - 
+			    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(time)));
+				
+				if(i<10)
+				{
+					startText.setText(
+							String.format("%d:0%d", 
+								    TimeUnit.MILLISECONDS.toMinutes(time),
+								    i));
+				}
+				else
+				{
+					startText.setText(
+							String.format("%d:%d", 
+								    TimeUnit.MILLISECONDS.toMinutes(time),
+								    i)
+								);
+				}
+			}
+
+			@Override
+			public void onStartTrackingTouch(SeekBar arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onStopTrackingTouch(SeekBar seekBar) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+		
+		endLoop.setOnSeekBarChangeListener(new OnSeekBarChangeListener(){
+
+			@Override
+			public void onProgressChanged(SeekBar arg0, int time, boolean arg2) {
+				// TODO Auto-generated method stub
+				int i = (int) (TimeUnit.MILLISECONDS.toSeconds(time) - 
+			    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(time)));
+				
+				if(i<10)
+				{
+					endText.setText(
+							String.format("%d:0%d", 
+								    TimeUnit.MILLISECONDS.toMinutes(time),
+								    i));
+				}
+				else
+				{
+					endText.setText(
+							String.format("%d:%d", 
+								    TimeUnit.MILLISECONDS.toMinutes(time),
+								    i)
+								);
+				}
+			}
+
+			@Override
+			public void onStartTrackingTouch(SeekBar arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onStopTrackingTouch(SeekBar seekBar) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+		
+		
 	}
 	
 	private int getAlbumId(String name)
@@ -987,5 +1138,15 @@ public class JamMode extends Activity{
 	    }
 	    return bm;
 	}
+	
+	protected void onPause(){
+        super.onPause();
+
+        // Necessary to clear first if we save preferences onPause. 
+        //editor.clear();
+        mMediaPlayer.pause();
+        editor.putBoolean("isLoop2", false);
+        editor.commit();
+    }
 
 }

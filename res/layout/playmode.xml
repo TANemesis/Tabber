@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent" android:orientation="vertical" android:id="@+id/playBackground">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:layout_weight="1" android:id="@+id/whentoplay"></LinearLayout>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:layout_weight="1" android:id="@+id/frets" android:orientation="vertical">
+        <LinearLayout android:id="@+id/stringNumber" android:layout_weight=".5" android:layout_gravity="center|center_vertical" android:layout_width="match_parent" android:layout_height="wrap_content"></LinearLayout>
+        <LinearLayout android:layout_weight="1" android:layout_height="match_parent" android:id="@+id/stringOne" android:layout_gravity="center|center_vertical" android:layout_width="match_parent">
+        </LinearLayout>
+        <LinearLayout android:layout_height="match_parent" android:layout_weight="1" android:id="@+id/stringTwo" android:layout_gravity="center|center_vertical" android:layout_width="match_parent"></LinearLayout>
+        <LinearLayout android:layout_height="match_parent" android:layout_weight="1" android:id="@+id/stringThree" android:gravity="center_vertical" android:layout_gravity="center|center_vertical" android:layout_width="match_parent"></LinearLayout>
+        <LinearLayout android:layout_height="match_parent" android:layout_weight="1" android:id="@+id/stringFour" android:layout_gravity="center_vertical" android:layout_width="match_parent"></LinearLayout>
+        <LinearLayout android:layout_height="match_parent" android:layout_weight="1" android:id="@+id/stringFive" android:layout_gravity="center_vertical" android:layout_width="match_parent"></LinearLayout>
+        <LinearLayout android:layout_height="match_parent" android:layout_weight="1" android:id="@+id/stringSix" android:layout_gravity="center_vertical" android:layout_width="match_parent"></LinearLayout>
+    </LinearLayout>
+</LinearLayout>
