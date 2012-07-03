@@ -32,6 +32,7 @@ public class AndroidBuildingMusicPlayerActivity extends Activity implements OnCo
 	private ImageButton img_btnRepeat;
 	private ImageButton img_btnShuffle;
 	private SeekBar songProgressBar;
+	private TextView songArtistLabel;
 	private TextView songTitleLabel;
 	private TextView songCurrentDurationLabel;
 	private TextView songTotalDurationLabel;
@@ -46,7 +47,7 @@ public class AndroidBuildingMusicPlayerActivity extends Activity implements OnCo
 	private int currentSongIndex = 0; 
 	private boolean isShuffle = false;
 	private boolean isRepeat = false;
-	private ArrayList<ArrayList<String>> songsList = new ArrayList<ArrayList<String>>();
+	private ArrayList<HashMap<String,String>> songsList = new ArrayList<HashMap<String,String>>();
 	
 
 	@Override
@@ -67,6 +68,7 @@ public class AndroidBuildingMusicPlayerActivity extends Activity implements OnCo
 		songTitleLabel = (TextView) findViewById(R.id.songTitle);
 		songCurrentDurationLabel = (TextView) findViewById(R.id.songCurrentDurationLabel);
 		songTotalDurationLabel = (TextView) findViewById(R.id.songTotalDurationLabel);
+		songArtistLabel = (TextView) findViewById(R.id.artistName);
 		
 		// Mediaplayer
 		mp = new MediaPlayer();
@@ -99,13 +101,26 @@ public class AndroidBuildingMusicPlayerActivity extends Activity implements OnCo
 
 		while(cursor.moveToNext()){
 			
-		    String title = cursor.getString(2);
-		    String data = cursor.getString(1);
-
+			//ArrayList<String> songs = new ArrayList<String>();
+			String artist = cursor.getString(0);
+			String data = cursor.getString(2);
+			String title = cursor.getString(1);
+			String album = cursor.getString(4);
+			int id = cursor.getInt(5);
+		    
+		    
 			
-			//HashMap<String, String> song = new HashMap<String, String>();
-			//song.put("songTitle", title);
-			//song.put("songPath", data);
+			HashMap<String, String> song = new HashMap<String, String>();
+			song.put("songTitle", title);
+			song.put("songPath", data);
+			song.put("albumTitle", album);
+			song.put("artistName", artist);
+			song.put("albumID", String.valueOf(id));
+			//songs.add(artist);
+			//songs.add(data);
+			//songs.add(title);
+			//songs.add(album);
+			//songs.add(String.valueOf(id));
 			
 			// Adding each song to SongList
 			songsList.add(song);
@@ -329,6 +344,9 @@ public class AndroidBuildingMusicPlayerActivity extends Activity implements OnCo
 			String songTitle = songsList.get(songIndex).get("songTitle");
         	songTitleLabel.setText(songTitle);
 			
+        	String artist = songsList.get(songIndex).get("artistName");
+        	songArtistLabel.setText(artist);
+        	
         	// Changing Button Image to pause image
 			img_btnPlay.setImageResource(R.drawable.img_btn_pause);
 

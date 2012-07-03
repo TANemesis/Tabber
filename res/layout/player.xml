@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textColor="#04b3d2"
-            android:textSize="10dp"
+            android:textSize="14dp"
             android:paddingLeft="10dp"
             android:textStyle="bold"
             android:text="The Good, The Bad And The Ugly"
