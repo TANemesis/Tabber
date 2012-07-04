@@ -29,6 +29,7 @@ import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable.Orientation;
@@ -256,8 +257,25 @@ public class VideoMode extends Activity {
 	            if (buf != null) {
 	                buf.close();
 	            }
+	            
+	            if(bMap==null)
+	    	    {
+	    	    	return null;
+	    	    }
+	    	    int width = bMap.getWidth();
+	            int height = bMap.getHeight();
+	            float scaleWidth = ((float) 200) / width;
+	            float scaleHeight = ((float) 180) / height;
+	            // CREATE A MATRIX FOR THE MANIPULATION
+	            Matrix matrix = new Matrix();
+	            // RESIZE THE BIT MAP
+	            matrix.postScale(scaleWidth, scaleHeight);
 
-	            return new BitmapDrawable(bMap);
+
+	            // RECREATE THE NEW BITMAP
+	            Bitmap resizedBitmap = Bitmap.createBitmap(bMap, 0, 0, width, height, matrix, false);
+
+	            return new BitmapDrawable(resizedBitmap);
 
 	        } catch (Exception e) {
 	            Log.e("Error reading file", e.toString());

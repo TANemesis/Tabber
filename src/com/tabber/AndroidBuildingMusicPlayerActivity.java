@@ -361,7 +361,15 @@ public class AndroidBuildingMusicPlayerActivity extends Activity implements OnCo
 			String album = songsList.get(songIndex).get("albumTitle");
 			Bitmap albumArt = main.getArt(album);
 			
-			albumPicture.setImageBitmap(albumArt);
+			if(albumArt!=null)
+			{
+				albumPicture.setImageBitmap(albumArt);
+			}
+			else
+			{
+				albumPicture.setImageResource(R.drawable.adele);
+			}
+			
 			// Updating progress bar
 			updateProgressBar();			
 		} catch (IllegalArgumentException e) {

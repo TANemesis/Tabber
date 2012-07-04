@@ -1,6 +1,10 @@
 package com.tabber;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.FileDescriptor;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.HashMap;
 
 import android.app.Activity;
@@ -12,10 +16,15 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
+import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TabHost;
 
 public class main extends TabActivity {
@@ -27,7 +36,7 @@ public class main extends TabActivity {
     public void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-
+        
         setUpHashMap();
         
         Resources res = getResources(); // Resource object to get Drawables
@@ -84,6 +93,8 @@ public class main extends TabActivity {
 		{
 			String name = cursor.getString(0);
 			int id = cursor.getInt(1);
+			
+			
 			Bitmap bitmap = getAlbumart((long)id);
 			if(bitmap!=null)
 			{
@@ -100,7 +111,7 @@ public class main extends TabActivity {
     	return albumArt.get(name);
     }
     
-    private Bitmap getAlbumart(Long album_id) 
+    protected Bitmap getAlbumart(Long album_id) 
 	   {
 	        Bitmap bm = null;
 	        try 
@@ -139,7 +150,10 @@ public class main extends TabActivity {
         return resizedBitmap;
 	}
     
-   // public Bitmap getResizedBitmap(Bitmap bm, int newHeight, int newWidth) {
-   //     
-   // }
+    protected void putInHashMap(String aname, Bitmap aart)
+    {
+    	albumArt.put(aname, aart);
+    }
+    
+
 }
