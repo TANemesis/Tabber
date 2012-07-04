@@ -1,5 +1,7 @@
 package com.tabber;
 
+import java.io.DataInputStream;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -25,7 +27,7 @@ public class PlayMode extends Activity {
         final HorizontalScrollView temp = (HorizontalScrollView) findViewById(R.id.horizontalScrollView1);
         Timer time = new Timer();
         TabTask task = new TabTask(temp);
-        time.scheduleAtFixedRate(task, 0, 10);
+        time.scheduleAtFixedRate(task, 0, 50);
         
 	
 	}
@@ -52,12 +54,17 @@ public class PlayMode extends Activity {
         LinearLayout stringFive = (LinearLayout) findViewById(R.id.stringFive);
         LinearLayout stringSix = (LinearLayout) findViewById(R.id.stringSix);
         
-        TextView temp = new TextView(this);
-        temp.setTextColor(Color.WHITE);
-        stringNumber.addView(temp);
-        for(int i = 0; i < 1000; i++)
+        
+        
+        
+        
+        for(int i = 0; i < 6; i++)
         {
-        	temp.setText(temp.getText().toString() + "--" + String.valueOf(i));
+        	TextView temp = new TextView(this);
+        	temp.setText("|-14---------------14---------------15---------------7-------8---------------17p14----17p14----17p14----17p14----17p14----14----------------------------14---------------14---------------15---------------7-------8---------------17p14----17p14----17p14----17p14----17p14----14---------------------------");
+            temp.setTextColor(Color.WHITE);
+            stringNumber.addView(temp);
+        
         }
 	}
 	

@@ -1,20 +1,35 @@
 package com.tabber;
 
+import java.io.FileDescriptor;
+import java.util.HashMap;
+
 import android.app.Activity;
 import android.app.TabActivity;
+import android.content.ContentUris;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.ParcelFileDescriptor;
+import android.provider.MediaStore;
 import android.widget.TabHost;
 
 public class main extends TabActivity {
     /** Called when the activity is first created. */
+	private static HashMap<String, Bitmap> albumArt;
+	
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
     	super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
+        setUpHashMap();
+        
         Resources res = getResources(); // Resource object to get Drawables
         TabHost tabHost = getTabHost();  // The activity TabHost
         TabHost.TabSpec spec;  // Resusable TabSpec for each tab
@@ -44,5 +59,87 @@ public class main extends TabActivity {
 
         tabHost.setCurrentTab(0);
 
+        
+        
     }
+    
+    private void setUpHashMap()
+    {
+    	albumArt = new HashMap<String, Bitmap>();
+    	String selection = MediaStore.Audio.Media.IS_MUSIC + " != 0";
+		Cursor cursor;
+		String[] projection = {
+		        MediaStore.Audio.Media.ALBUM,
+		        MediaStore.Audio.Media.ALBUM_ID
+		};
+
+		cursor = managedQuery(
+		        MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+		        projection,
+		        selection,
+		        null,
+		        null);
+		
+		while(cursor.moveToNext())
+		{
+			String name = cursor.getString(0);
+			int id = cursor.getInt(1);
+			Bitmap bitmap = getAlbumart((long)id);
+			if(bitmap!=null)
+			{
+				albumArt.put(name, bitmap);
+			}
+			
+			
+		}
+		
+    }
+    
+    public static Bitmap getArt(String name)
+    {
+    	return albumArt.get(name);
+    }
+    
+    private Bitmap getAlbumart(Long album_id) 
+	   {
+	        Bitmap bm = null;
+	        try 
+	        {
+	            final Uri sArtworkUri = Uri
+	                .parse("content://media/external/audio/albumart");
+
+	            Uri uri = ContentUris.withAppendedId(sArtworkUri, album_id);
+
+	            ParcelFileDescriptor pfd = this.getContentResolver()
+	                .openFileDescriptor(uri, "r");
+
+	            if (pfd != null) 
+	            {
+	                FileDescriptor fd = pfd.getFileDescriptor();
+	                bm = BitmapFactory.decodeFileDescriptor(fd);
+	            }
+	    } catch (Exception e) {
+	    }
+	    if(bm==null)
+	    {
+	    	return null;
+	    }
+	    int width = bm.getWidth();
+        int height = bm.getHeight();
+        float scaleWidth = ((float) 300) / width;
+        float scaleHeight = ((float) 300) / height;
+        // CREATE A MATRIX FOR THE MANIPULATION
+        Matrix matrix = new Matrix();
+        // RESIZE THE BIT MAP
+        matrix.postScale(scaleWidth, scaleHeight);
+
+
+        // RECREATE THE NEW BITMAP
+        Bitmap resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false);
+        return resizedBitmap;
+	}
+    
+   // public Bitmap getResizedBitmap(Bitmap bm, int newHeight, int newWidth) {
+   //     
+   // }
 }

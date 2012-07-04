@@ -27,8 +27,8 @@
         <!-- Song Title -->
         <TextView 
             android:id="@+id/songTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="240dip"
+            android:layout_height="16dp"
             android:layout_weight="1"
             android:textColor="#04b3d2"
             android:textSize="16dp"
@@ -78,7 +78,8 @@
         android:paddingBottom="10dp"
         android:gravity="center"
         android:layout_below="@id/player_header_bg">
-    	<ImageView android:layout_width="wrap_content"
+    	<ImageView android:id="@+id/albumPicture"
+    	android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/adele"/>    
     </LinearLayout>

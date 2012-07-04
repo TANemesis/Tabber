@@ -9,6 +9,7 @@ import java.util.Random;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.os.Handler;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -36,6 +38,7 @@ public class AndroidBuildingMusicPlayerActivity extends Activity implements OnCo
 	private TextView songTitleLabel;
 	private TextView songCurrentDurationLabel;
 	private TextView songTotalDurationLabel;
+	private ImageView albumPicture;
 	// Media Player
 	private  MediaPlayer mp;
 	// Handler to update UI timer, progress bar etc,.
@@ -69,6 +72,7 @@ public class AndroidBuildingMusicPlayerActivity extends Activity implements OnCo
 		songCurrentDurationLabel = (TextView) findViewById(R.id.songCurrentDurationLabel);
 		songTotalDurationLabel = (TextView) findViewById(R.id.songTotalDurationLabel);
 		songArtistLabel = (TextView) findViewById(R.id.artistName);
+		albumPicture = (ImageView) findViewById(R.id.albumPicture);
 		
 		// Mediaplayer
 		mp = new MediaPlayer();
@@ -354,6 +358,10 @@ public class AndroidBuildingMusicPlayerActivity extends Activity implements OnCo
 			songProgressBar.setProgress(0);
 			songProgressBar.setMax(100);
 			
+			String album = songsList.get(songIndex).get("albumTitle");
+			Bitmap albumArt = main.getArt(album);
+			
+			albumPicture.setImageBitmap(albumArt);
 			// Updating progress bar
 			updateProgressBar();			
 		} catch (IllegalArgumentException e) {
