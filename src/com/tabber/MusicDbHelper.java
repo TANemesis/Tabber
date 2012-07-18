@@ -1,5 +1,14 @@
 package com.tabber;
 
+/***************************************************
+ * 
+ * Not used
+ * different database class
+ * may use later
+ * 
+ * 
+ *************************************************/
+
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;

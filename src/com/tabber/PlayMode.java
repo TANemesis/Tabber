@@ -1,5 +1,14 @@
 package com.tabber;
 
+/***************************************************
+ * 
+ * This class is used for the third mode
+ * described as playmode by Ryan
+ * 
+ * 
+ *************************************************/
+
+//imports
 import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.util.ArrayList;
@@ -20,32 +29,49 @@ import android.widget.TextView;
 public class PlayMode extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //set content view
         setContentView(R.layout.playmode);
          
+        //set up the play mode
         setUpPlayMode();
         
+        //intialize the horizontal scroll view and timer
         final HorizontalScrollView temp = (HorizontalScrollView) findViewById(R.id.horizontalScrollView1);
         Timer time = new Timer();
         TabTask task = new TabTask(temp);
+        //set the timer to go off every 50 milliseconds
         time.scheduleAtFixedRate(task, 0, 50);
         
 	
 	}
 	
+	/**
+	 * 
+	 * @param hs
+	 * @param x
+	 * 
+	 * Moves the tabe over by x amount
+	 */
 	protected void updateTab(final HorizontalScrollView hs, final int x)
 	{
-		
+		//move tab over
         hs.postDelayed(new Runnable() {
            public void run() {
         	   
            	hs.smoothScrollTo(x, 0);
+           
                //temp.fullScroll(HorizontalScrollView.FOCUS_RIGHT);
            }
        }, 0);
 	}
 	
+	/**
+	 * Sets up the playmode
+	 * will be much more intense later on
+	 */
 	private void setUpPlayMode()
 	{
+		//initialize layout
         LinearLayout stringNumber = (LinearLayout) findViewById(R.id.stringNumber);
         LinearLayout stringOne = (LinearLayout) findViewById(R.id.stringOne);
         LinearLayout stringTwo = (LinearLayout) findViewById(R.id.stringTwo);
@@ -57,17 +83,27 @@ public class PlayMode extends Activity {
         
         
         
-        
+        //create the tab lines
         for(int i = 0; i < 6; i++)
         {
         	TextView temp = new TextView(this);
-        	temp.setText("|-14---------------14---------------15---------------7-------8---------------17p14----17p14----17p14----17p14----17p14----14----------------------------14---------------14---------------15---------------7-------8---------------17p14----17p14----17p14----17p14----17p14----14---------------------------");
+        	temp.setText("|-14---------------14---------------15----------" +
+        			"-----7-------8---------------17p14----17p14----17p14--" +
+        			"--17p14----17p14----14---------------------" +
+        			"-------14---------------14---------------15----------" +
+        			"-----7-------8---------------17p14----17p14----17p14----17p14" +
+        			"----17p14----14---------------------------");
             temp.setTextColor(Color.WHITE);
             stringNumber.addView(temp);
         
         }
 	}
 	
+	/**
+	 * 
+	 * @author Robin
+	 * Takes care of moving the tab
+	 */
 	class TabTask extends TimerTask {
 	    //times member represent calling times.
 	    private int times = 0;

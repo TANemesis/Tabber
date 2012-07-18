@@ -1,5 +1,15 @@
 package com.tabber;
 
+/***************************************************
+ * 
+ * This is the class that is called jam mode as per Ryan's description. 
+ * I found the skeleton in an open source project
+ * and modified it to fit our needs. It is a basic media player.
+ * 
+ * 
+ *************************************************/
+
+//imports
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +35,7 @@ import android.widget.Toast;
 
 public class AndroidBuildingMusicPlayerActivity extends Activity implements OnCompletionListener, SeekBar.OnSeekBarChangeListener {
 
+	//all of the variables to be used
 	private ImageButton img_btnPlay;
 	private ImageButton img_btnForward;
 	private ImageButton img_btnBackward;
@@ -52,13 +63,14 @@ public class AndroidBuildingMusicPlayerActivity extends Activity implements OnCo
 	private boolean isRepeat = false;
 	private ArrayList<HashMap<String,String>> songsList = new ArrayList<HashMap<String,String>>();
 	
-
+	//called when class is started
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		//set content view to res->layout->player
 		setContentView(R.layout.player);
 		
-		// All player buttons
+		//initialize all the buttons based on player layout
 		img_btnPlay = (ImageButton) findViewById(R.id.btnPlay);
 		img_btnForward = (ImageButton) findViewById(R.id.btnForward);
 		img_btnBackward = (ImageButton) findViewById(R.id.btnBackward);
@@ -74,16 +86,18 @@ public class AndroidBuildingMusicPlayerActivity extends Activity implements OnCo
 		songArtistLabel = (TextView) findViewById(R.id.artistName);
 		albumPicture = (ImageView) findViewById(R.id.albumPicture);
 		
-		// Mediaplayer
+		//Initialize Mediaplayer
 		mp = new MediaPlayer();
 		songManager = new SongsManager();
 		utils = new Utilities();
 		
-		// Listeners
+		// Initialize Listeners
+		//listeners are used to move seekbar and determine when a song is done
 		songProgressBar.setOnSeekBarChangeListener(this); // Important
 		mp.setOnCompletionListener(this); // Important
 		
-		// Getting all songs list
+		// Getting list of all songs
+		//they will be returned in a cursor with 0 being the artist name etc.
 		String selection = MediaStore.Audio.Media.IS_MUSIC + " != 0";
 		Cursor cursor;
 		String[] projection = {
@@ -94,7 +108,7 @@ public class AndroidBuildingMusicPlayerActivity extends Activity implements OnCo
 		        MediaStore.Audio.Media.ALBUM,
 		        MediaStore.Audio.Media.ALBUM_ID
 		};
-
+		//query based on the projection listed above
 		cursor = managedQuery(
 		        MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
 		        projection,
@@ -102,10 +116,10 @@ public class AndroidBuildingMusicPlayerActivity extends Activity implements OnCo
 		        null,
 		        null);
 
-
+		//loop through all the songs
 		while(cursor.moveToNext()){
 			
-			//ArrayList<String> songs = new ArrayList<String>();
+			//set the strings to the song information to put in the hashmap
 			String artist = cursor.getString(0);
 			String data = cursor.getString(2);
 			String title = cursor.getString(1);
@@ -113,7 +127,7 @@ public class AndroidBuildingMusicPlayerActivity extends Activity implements OnCo
 			int id = cursor.getInt(5);
 		    
 		    
-			
+			//insert into the hashmap
 			HashMap<String, String> song = new HashMap<String, String>();
 			song.put("songTitle", title);
 			song.put("songPath", data);
@@ -129,7 +143,7 @@ public class AndroidBuildingMusicPlayerActivity extends Activity implements OnCo
 			// Adding each song to SongList
 			songsList.add(song);
 			
-		// return songs list array
+		
 
 	}
 		
@@ -334,20 +348,33 @@ public class AndroidBuildingMusicPlayerActivity extends Activity implements OnCo
     }
 	
 	/**
-	 * Function to play a song
+	 * Function to play a song based on the songs index
 	 * @param songIndex - index of song
+	 * 
+	 * 
+	 * 
+	 * THIS IS WHERE YOU WOULD WANT TO SEND THE DATA TO THE GUITAR IN JAM MODE!
+	 * 
+	 * 
+	 * 
 	 * */
 	public void  playSong(int songIndex){
 		// Play song
 		try {
+			//reset the media player
         	mp.reset();
+        	//you have to set the path to the data part of what the cursor returned
+        	//which is songPath in the hashmap
 			mp.setDataSource(songsList.get(songIndex).get("songPath"));
+			//always prepare the mediaplayer
 			mp.prepare();
+			//play the song
 			mp.start();
 			// Displaying Song title
 			String songTitle = songsList.get(songIndex).get("songTitle");
         	songTitleLabel.setText(songTitle);
-			
+        	
+			//display the artist name
         	String artist = songsList.get(songIndex).get("artistName");
         	songArtistLabel.setText(artist);
         	
@@ -358,9 +385,11 @@ public class AndroidBuildingMusicPlayerActivity extends Activity implements OnCo
 			songProgressBar.setProgress(0);
 			songProgressBar.setMax(100);
 			
+			//set the album art
 			String album = songsList.get(songIndex).get("albumTitle");
 			Bitmap albumArt = main.getArt(album);
 			
+			//if there is no art, set it to the default android picture
 			if(albumArt!=null)
 			{
 				albumPicture.setImageBitmap(albumArt);
@@ -393,6 +422,7 @@ public class AndroidBuildingMusicPlayerActivity extends Activity implements OnCo
 	 * */
 	private Runnable mUpdateTimeTask = new Runnable() {
 		   public void run() {
+			   //get the duration and current position
 			   long totalDuration = mp.getDuration();
 			   long currentDuration = mp.getCurrentPosition();
 			  
@@ -412,6 +442,11 @@ public class AndroidBuildingMusicPlayerActivity extends Activity implements OnCo
 		};
 		
 	/**
+	 *
+	 * WILL USE TO SET THE LOOP
+	 * DO NOT DELETE
+	 * 
+	 * 
 	 * 
 	 * */
 	@Override
@@ -434,6 +469,7 @@ public class AndroidBuildingMusicPlayerActivity extends Activity implements OnCo
 	@Override
     public void onStopTrackingTouch(SeekBar seekBar) {
 		mHandler.removeCallbacks(mUpdateTimeTask);
+		//get duration and current position
 		int totalDuration = mp.getDuration();
 		int currentPosition = utils.progressToTimer(seekBar.getProgress(), totalDuration);
 		
@@ -473,7 +509,7 @@ public class AndroidBuildingMusicPlayerActivity extends Activity implements OnCo
 			}
 		}
 	}
-	
+	//when class goes away, stop the music
 	@Override
 	 public void onDestroy(){
 	 super.onDestroy();

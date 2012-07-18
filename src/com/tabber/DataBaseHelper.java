@@ -1,5 +1,15 @@
 package com.tabber;
 
+/***************************************************
+ * 
+ * Currently not used.
+ * Decided against using a database.
+ * may come in handy later
+ * 
+ * 
+ * 
+ *************************************************/
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;

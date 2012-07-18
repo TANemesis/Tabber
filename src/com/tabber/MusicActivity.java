@@ -1,4 +1,15 @@
 package com.tabber;
+
+/***************************************************
+ * 
+ * Not currently used
+ * old media player
+ * use as reference
+ * do not delete
+ * 
+ * 
+ *************************************************/
+
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
@@ -12,6 +23,8 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
+
+
 
 public class MusicActivity extends Activity {
       ListView musiclist;

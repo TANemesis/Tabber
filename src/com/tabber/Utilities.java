@@ -1,5 +1,10 @@
 package com.tabber;
-
+/***************************************************
+ * 
+ * This class is just used for utility functions
+ * 
+ * 
+ *************************************************/
 
 public class Utilities {
 	

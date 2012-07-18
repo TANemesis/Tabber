@@ -1,12 +1,17 @@
 package com.tabber;
+/***************************************************
+ * 
+ * This class is the first called video mode by Ryan
+ * it will be the database of youtube videos
+ * 
+ * 
+ *************************************************/
 
 import com.echonest.api.v4.EchoNestAPI;
 import com.echonest.api.v4.EchoNestException;
 import com.echonest.api.v4.Params;
 import com.echonest.api.v4.Song;
 import com.echonest.api.v4.Track;
-
-
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -46,12 +51,16 @@ import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.MediaController;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 public class VideoMode extends Activity {
 	  /**
 	   * The name of the server hosting the YouTube GDATA feeds
+	   * NOT USED RIGHT NOW
+	   * will use for custom youtube player
 	   */
 	  public static final String YOUTUBE_GDATA_SERVER = "http://gdata.youtube.com";
 	  
@@ -65,63 +74,98 @@ public class VideoMode extends Activity {
 	
 	  public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //set content view
         setContentView(R.layout.videomode);
+        
+        //set backgorund color to white
         LinearLayout background = (LinearLayout) findViewById(R.id.scrollLL);
         background.setBackgroundColor(Color.WHITE);
         
-        
+        //list of video ids and song and artist names
+        //will be pulled from database when that is ready
         String[] videoIDs = {"sENM2wA_FTg", "qQkBeOisNM0","sENM2wA_FTg", "qQkBeOisNM0","sENM2wA_FTg", "qQkBeOisNM0","sENM2wA_FTg", "qQkBeOisNM0"};
         String[] songNames = {"It's Time", "Some Nights","It's Time", "Some Nights","It's Time", "Some Nights","It's Time", "Some Nights"};
         String[] artistNames = {"Imagine Dragons", "fun.","Imagine Dragons", "fun.","Imagine Dragons", "fun.","Imagine Dragons", "fun."};
         
+        //loop through all of the videos
         for(int i = 0; i < videoIDs.length; i++)
         {
+        	//get the video id
         	final String videoID = videoIDs[i];
+        	//create new linear layout and textview to display video information
         	LinearLayout layout = new LinearLayout(this);
             TextView textview = new TextView(this);
+            //set text color and size
             textview.setTextColor(Color.BLACK);
             textview.setTextSize(17);
+            //set the spacing around the text view
             textview.setPadding(10, 0, 5, 0);
+            //set the text to artist name and song name
             textview.setText(songNames[i] + " - " + artistNames[i]);
 
     		//Bitmap bitmap = getPicture("http://img.youtube.com/vi/"
     		//		+videoID+"/default.jpg");
+            //create new imageview to display thumbnail
     		ImageView imview = new ImageView(this);
     		//imview.setImageBitmap(bitmap);
+    		//set the spacing around the imageview
     		imview.setPadding(0, 10, 0, 0);
             
+    		//create a new AsyncTask to download the image
     		DownloadImage temp = new DownloadImage(imview);
+    		//execute the task with this url to get the video thumbnail
     		temp.execute("http://img.youtube.com/vi/"+videoID+"/default.jpg");
     		
+    		//set up the linear layout
             layout.setGravity(Gravity.CENTER_VERTICAL);
+            //add views to layout
             layout.addView(imview);
             layout.addView(textview);
+            //set spacing around layout
             layout.setPadding(10, 0, 0, 10);
             
+            /**
+             * Set the onclick listener for the image view
+             * 
+             * THIS IS WHERE YOU WANT TO SEND THE DATA TO THE GUITAR
+             */
             imview.setOnClickListener(new OnClickListener()
             {
 
 				@Override
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
+					
+					//start youtube activity
 					startActivity(new Intent(Intent.ACTION_VIEW, 
     						Uri.parse("http://www.youtube.com/watch?v=" + videoID)));
+					
 				}
             	
             });
+            
+            /**
+             * Set the onclick listener for the textview
+             * same as for above but if they click on the text instead
+             * THIS IS WHERE YOU WANT TO SEND THE DATA TO THE GUITAR
+             */
             textview.setOnClickListener(new OnClickListener()
             {
 
 				@Override
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
+					
+					//start youtube activity
 					startActivity(new Intent(Intent.ACTION_VIEW, 
     						Uri.parse("http://www.youtube.com/watch?v=" + videoID)));
 				}
             	
             });
             
+            //add the layout to the background view
             background.addView(layout);
+            //create a line to go inbetween videos
             LinearLayout border = new LinearLayout(this);
             border.setLayoutParams(new LayoutParams(1000,1));
             //border.setPadding(0, 0, 0, 0);
@@ -138,7 +182,14 @@ public class VideoMode extends Activity {
 		}*/
 
     }
-	
+	/**
+	 * 
+	 * @param imageURL
+	 * @return picture
+	 * 
+	 * NOT CURRENTLY USED.
+	 * moved to AsyncTask
+	 */
 	private Bitmap getPicture(String imageURL)
 	{
 		
@@ -167,6 +218,14 @@ public class VideoMode extends Activity {
 		
 	}
 
+	/**
+	 * 
+	 * @param title
+	 * @param results
+	 * @throws EchoNestException
+	 * 
+	 * test echonet example
+	 */
 	public void searchSongsByTitle(String title, int results) throws EchoNestException {
 		EchoNestAPI en = new EchoNestAPI("NFOSOJDBS0WMMPC1X");
 		Params p = new Params();
@@ -181,20 +240,39 @@ public class VideoMode extends Activity {
 		}
 }
 	
-	
+	/**
+	 * Set the thumbnail to the imageview
+	 */
 	private void setImage(Drawable drawable, ImageView mImageView)
 	{
 	    mImageView.setImageDrawable(drawable);
 	}
+	
+	/**
+	 * 
+	 * @author Robin
+	 *AsyncTask to download the thumbnails for the videos
+	 *works a lot like a thread
+	 *
+	 */
 	public class DownloadImage extends AsyncTask<String, Integer, Drawable> {
 
+		//image view of the video
 		ImageView imView;
 		
+		/**
+		 * Constructor
+		 * @param im
+		 */
 		public DownloadImage(ImageView im)
 		{
 			this.imView = im;
 		}
 		
+		/**
+		 * This would be the run part of a thread
+		 * takes in the address to download the thumbnail
+		 */
 	    @Override
 	    protected Drawable doInBackground(String... arg0) {
 	        // This is done in a background thread
@@ -285,6 +363,7 @@ public class VideoMode extends Activity {
 	    }
 
 	}
+	
 	
 
 }

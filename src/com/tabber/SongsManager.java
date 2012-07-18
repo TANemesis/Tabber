@@ -1,5 +1,13 @@
 package com.tabber;
 
+/***************************************************
+ * 
+ * This class manages the songs
+ * 
+ * 
+ *************************************************/
+
+//imports
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
@@ -17,6 +25,7 @@ import android.widget.TextView;
 public class SongsManager {
 	// SDCard Path
 	final String MEDIA_PATH = new String("/sdcard/");
+	//arraylist for all of the songs
 	private ArrayList<HashMap<String, String>> songsList = new ArrayList<HashMap<String, String>>();
 	
 	// Constructor
@@ -36,6 +45,7 @@ public class SongsManager {
 	
 	/**
 	 * Class to filter files which are having .mp3 extension
+	 * may want to add more extensions as you see fit
 	 * */
 	class FileExtensionFilter implements FilenameFilter {
 		public boolean accept(File dir, String name) {
