@@ -127,7 +127,7 @@ public class VideoMode extends Activity {
             /**
              * Set the onclick listener for the image view
              * 
-             * THIS IS WHERE YOU WANT TO SEND THE DATA TO THE GUITAR
+             * 
              */
             imview.setOnClickListener(new OnClickListener()
             {
@@ -137,8 +137,7 @@ public class VideoMode extends Activity {
 					// TODO Auto-generated method stub
 					
 					//start youtube activity
-					startActivity(new Intent(Intent.ACTION_VIEW, 
-    						Uri.parse("http://www.youtube.com/watch?v=" + videoID)));
+					playYoutubeVideo(videoID);
 					
 				}
             	
@@ -147,7 +146,7 @@ public class VideoMode extends Activity {
             /**
              * Set the onclick listener for the textview
              * same as for above but if they click on the text instead
-             * THIS IS WHERE YOU WANT TO SEND THE DATA TO THE GUITAR
+             *
              */
             textview.setOnClickListener(new OnClickListener()
             {
@@ -157,8 +156,7 @@ public class VideoMode extends Activity {
 					// TODO Auto-generated method stub
 					
 					//start youtube activity
-					startActivity(new Intent(Intent.ACTION_VIEW, 
-    						Uri.parse("http://www.youtube.com/watch?v=" + videoID)));
+					playYoutubeVideo(videoID);
 				}
             	
             });
@@ -362,6 +360,16 @@ public class VideoMode extends Activity {
 	        return null;
 	    }
 
+	}
+	/**
+	 *  THIS IS WHERE YOU WANT TO SEND THE DATA TO THE GUITAR
+	 *  Plays the youtube video in youtube app by default
+	 * @param videoId
+	 */
+	private void playYoutubeVideo(String videoId)
+	{
+		startActivity(new Intent(Intent.ACTION_VIEW, 
+				Uri.parse("http://www.youtube.com/watch?v=" + videoId)));
 	}
 	
 	
