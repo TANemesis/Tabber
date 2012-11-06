@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent" android:orientation="vertical" android:id="@+id/playBackground">
+    <HorizontalScrollView android:id="@+id/horizontalScrollView1" android:layout_width="match_parent" android:layout_height="match_parent">
+        <LinearLayout android:id="@+id/frets" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent">
+            <LinearLayout android:id="@+id/stringNumber" android:orientation="vertical" android:layout_gravity="center|center_vertical" android:layout_width="match_parent" android:layout_height="match_parent"></LinearLayout>
+            <LinearLayout android:id="@+id/stringOne" android:layout_gravity="center|center_vertical" android:layout_width="match_parent" android:layout_height="match_parent"></LinearLayout>
+            <LinearLayout android:id="@+id/stringTwo" android:layout_gravity="center|center_vertical" android:layout_width="match_parent" android:layout_height="match_parent"></LinearLayout>
+            <LinearLayout android:id="@+id/stringThree" android:gravity="center_vertical" android:layout_gravity="center|center_vertical" android:layout_width="match_parent" android:layout_height="match_parent"></LinearLayout>
+            <LinearLayout android:id="@+id/stringFour" android:layout_gravity="center_vertical" android:layout_width="match_parent" android:layout_height="match_parent"></LinearLayout>
+            <LinearLayout android:id="@+id/stringFive" android:layout_gravity="center_vertical" android:layout_width="match_parent" android:layout_height="match_parent"></LinearLayout>
+            <LinearLayout android:id="@+id/stringSix" android:layout_gravity="center_vertical" android:layout_width="match_parent" android:layout_height="match_parent"></LinearLayout>
+        </LinearLayout>
+    </HorizontalScrollView>
+</LinearLayout>
