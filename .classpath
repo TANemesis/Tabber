@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
-	<classpathentry kind="lib" path="C:/Users/Robin/Downloads/jEN-4.x.p/lib/jEN.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Robin/Downloads/jEN-4.x.p/lib/json_simple-1.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Robin/Downloads/gdata/java/deps/guava-11.0.2.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Robin/Downloads/gdata/java/deps/jsr305.jar"/>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="gen"/>
-	<classpathentry kind="output" path="bin"/>
+    <classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+    <classpathentry kind="src" path="src"/>
+    <classpathentry kind="src" path="gen"/>
+    <classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+    <classpathentry kind="lib" path="guava-11.0.1.jar"/>
+    <classpathentry kind="lib" path="jEN.jar"/>
+    <classpathentry kind="lib" path="json_simple-1.1.jar"/>
+    <classpathentry kind="lib" path="jsr305-1.3.9.jar"/>
+    <classpathentry kind="output" path="bin/classes"/>
 </classpath>
